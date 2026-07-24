@@ -1,0 +1,7 @@
+# MBBS Abroad Consultancy
+
+Full-stack platform for MBBS abroad admissions consultancy.
+
+## Structure
+- `frontend/` — Flutter web application
+- `backend/` — Spring Boot REST API

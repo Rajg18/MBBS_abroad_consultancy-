@@ -1,0 +1,30 @@
+### Backend (Java/Maven) ###
+backend/target/
+!backend/.mvn/wrapper/maven-wrapper.jar
+
+### Frontend (Flutter) ###
+frontend/build/
+frontend/.dart_tool/
+frontend/.flutter-plugins
+frontend/.flutter-plugins-dependencies
+frontend/.packages
+
+### Environment / secrets (both) ###
+.env
+*.env
+!.env.example
+
+### IDE ###
+.idea/
+*.iml
+.vscode/
+.settings/
+.project
+.classpath
+
+### OS / logs ###
+*.log
+.DS_Store
+
+### Local uploaded documents ###
+backend/uploads/

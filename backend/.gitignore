@@ -1,0 +1,22 @@
+target/
+!.mvn/wrapper/maven-wrapper.jar
+
+### Environment / secrets ###
+.env
+*.env
+!.env.example
+
+### IDE ###
+.idea/
+*.iml
+.vscode/
+.settings/
+.project
+.classpath
+
+### OS / logs ###
+*.log
+.DS_Store
+
+### Local uploaded documents (dev file-storage stand-in for R2) ###
+uploads/

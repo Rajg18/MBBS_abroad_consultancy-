@@ -1,0 +1,65 @@
+spring:
+  application:
+    name: medic-abroad-backend
+
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/medicabroad}
+    username: ${DB_USERNAME:medic}
+    password: ${DB_PASSWORD:medic}
+
+  jpa:
+    hibernate:
+      ddl-auto: update      # dev convenience; a migration tool comes later
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: true
+    show-sql: false
+
+  # Upload limits — marksheets/passport/Aadhaar are capped here as a first
+  # line of defence (Nginx and the app also enforce this later).
+  servlet:
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 25MB
+
+server:
+  port: ${SERVER_PORT:8080}
+
+# App-specific config (values filled from environment in each deployment).
+app:
+  cors:
+    # Dev: allow any localhost port (Flutter picks a random one). Production:
+    # set CORS_ALLOWED_ORIGINS to the real domain, e.g. https://yoursite.com
+    allowed-origins: ${CORS_ALLOWED_ORIGINS:http://localhost:*,http://127.0.0.1:*}
+  storage:
+    # "local" (default, dev) writes to disk. "r2" (production) uploads to
+    # Cloudflare R2 — set STORAGE_TYPE=r2 and fill in the r2.* values below.
+    type: ${STORAGE_TYPE:local}
+    # Local folder used as a stand-in for Cloudflare R2 during development.
+    local-dir: ${STORAGE_LOCAL_DIR:uploads}
+    r2:
+      account-id: ${R2_ACCOUNT_ID:}
+      access-key-id: ${R2_ACCESS_KEY_ID:}
+      secret-access-key: ${R2_SECRET_ACCESS_KEY:}
+      bucket: ${R2_BUCKET:}
+
+# WhatsApp Cloud API. While enabled=false the notification is logged, not sent
+# (useful until the Meta template is approved / token is rotated).
+whatsapp:
+  enabled: ${WHATSAPP_ENABLED:false}
+  api-version: ${WHATSAPP_API_VERSION:v22.0}
+  phone-number-id: ${WHATSAPP_PHONE_NUMBER_ID:}
+  token: ${WHATSAPP_TOKEN:}
+  template-name: ${WHATSAPP_TEMPLATE_NAME:new_application}
+  language-code: ${WHATSAPP_LANGUAGE_CODE:en}
+  admin-to: ${ADMIN_WHATSAPP_TO:}
+
+# Admin panel login. Production: set a BCrypt password-hash + a strong jwt-secret
+# via env. Dev: a plaintext password works (ignored when password-hash is set).
+admin:
+  username: ${ADMIN_USERNAME:admin}
+  password-hash: ${ADMIN_PASSWORD_HASH:}
+  password: ${ADMIN_PASSWORD:}
+  jwt-secret: ${ADMIN_JWT_SECRET:dev-only-change-me-please-min-32-characters!!}
+  session-hours: ${ADMIN_SESSION_HOURS:12}

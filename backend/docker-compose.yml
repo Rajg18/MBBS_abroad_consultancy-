@@ -1,0 +1,21 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: medic-abroad-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: medicabroad
+      POSTGRES_USER: medic
+      POSTGRES_PASSWORD: medic
+    ports:
+      - "5432:5432"
+    volumes:
+      - medic_pg_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U medic -d medicabroad"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  medic_pg_data:
