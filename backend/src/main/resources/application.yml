@@ -24,7 +24,7 @@ spring:
       max-request-size: 25MB
 
 server:
-  port: ${SERVER_PORT:8080}
+  port: ${PORT:${SERVER_PORT:8080}}
 
 # App-specific config (values filled from environment in each deployment).
 app:
