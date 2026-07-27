@@ -29,11 +29,19 @@ class ApplicationApi {
       form.fields.add(MapEntry('collegeIds', id));
     }
 
-    form.files
-      ..add(MapEntry('tenthMarksheet', _part(d.tenthMarksheet!)))
-      ..add(MapEntry('twelfthMarksheet', _part(d.twelfthMarksheet!)))
-      ..add(MapEntry('passport', _part(d.passport!)))
-      ..add(MapEntry('aadhaar', _part(d.aadhaar!)));
+    // Documents are optional — only attach whichever ones were actually picked.
+    if (d.tenthMarksheet != null) {
+      form.files.add(MapEntry('tenthMarksheet', _part(d.tenthMarksheet!)));
+    }
+    if (d.twelfthMarksheet != null) {
+      form.files.add(MapEntry('twelfthMarksheet', _part(d.twelfthMarksheet!)));
+    }
+    if (d.passport != null) {
+      form.files.add(MapEntry('passport', _part(d.passport!)));
+    }
+    if (d.aadhaar != null) {
+      form.files.add(MapEntry('aadhaar', _part(d.aadhaar!)));
+    }
 
     final res = await _dio.post('/applications', data: form);
     return (res.data as Map)['id'] as String;

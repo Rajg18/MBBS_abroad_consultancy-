@@ -1,6 +1,7 @@
 ### Backend (Java/Maven) ###
 backend/target/
 !backend/.mvn/wrapper/maven-wrapper.jar
+backend/token.txt
 
 ### Frontend (Flutter) ###
 frontend/build/

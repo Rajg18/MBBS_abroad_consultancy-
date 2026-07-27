@@ -305,12 +305,18 @@ class _ReviewScreenState extends ConsumerState<ReviewScreen> {
   }
 
   Widget _docRow(String label, PickedDoc? doc) {
+    final provided = doc != null;
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 6),
       child: Row(
         children: [
-          const Icon(Icons.check_circle_rounded,
-              size: 18, color: AppColors.success),
+          Icon(
+            provided
+                ? Icons.check_circle_rounded
+                : Icons.remove_circle_outline_rounded,
+            size: 18,
+            color: provided ? AppColors.success : AppColors.textMuted,
+          ),
           const SizedBox(width: 12),
           Expanded(
             child: Column(
@@ -321,12 +327,18 @@ class _ReviewScreenState extends ConsumerState<ReviewScreen> {
                         fontSize: 14,
                         fontWeight: FontWeight.w600,
                         color: AppColors.textPrimary)),
-                if (doc != null)
-                  Text('${doc.fileName} · ${doc.readableSize}',
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
-                          fontSize: 12.5, color: AppColors.textSecondary)),
+                Text(
+                  provided
+                      ? '${doc!.fileName} · ${doc.readableSize}'
+                      : 'Not provided',
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                      fontSize: 12.5,
+                      color: provided
+                          ? AppColors.textSecondary
+                          : AppColors.textMuted),
+                ),
               ],
             ),
           ),

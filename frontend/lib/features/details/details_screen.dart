@@ -94,22 +94,9 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen> {
 
   void _onContinue() {
     final formValid = _formKey.currentState?.validate() ?? false;
-    setState(() {
-      _tenthErr = _tenth == null ? 'Please upload your 10th marksheet' : null;
-      _twelfthErr =
-          _twelfth == null ? 'Please upload your 12th marksheet' : null;
-      _passportErr =
-          _passport == null ? 'Please upload your passport front page' : null;
-      _aadhaarErr = _aadhaar == null ? 'Please upload your Aadhaar card' : null;
-      _consentErr = !_consent;
-    });
+    setState(() => _consentErr = !_consent);
 
-    final docsValid = _tenth != null &&
-        _twelfth != null &&
-        _passport != null &&
-        _aadhaar != null;
-
-    if (!formValid || !docsValid || !_consent) {
+    if (!formValid || !_consent) {
       ScaffoldMessenger.of(context)
         ..hideCurrentSnackBar()
         ..showSnackBar(const SnackBar(
@@ -124,10 +111,10 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen> {
           phone: _phone.text.trim(),
           email: _email.text.trim(),
           neetScore: _neet.text.trim(),
-          tenthMarksheet: _tenth!,
-          twelfthMarksheet: _twelfth!,
-          passport: _passport!,
-          aadhaar: _aadhaar!,
+          tenthMarksheet: _tenth,
+          twelfthMarksheet: _twelfth,
+          passport: _passport,
+          aadhaar: _aadhaar,
           consent: _consent,
         );
     context.go('/review');
@@ -219,57 +206,7 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen> {
                             validator: _validateNeet,
                           ),
                           const SizedBox(height: 28),
-                          _sectionTitle('Documents'),
-                          const SizedBox(height: 6),
-                          const Text('PDF, JPG or PNG · up to 5 MB each',
-                              style: TextStyle(
-                                  fontSize: 13,
-                                  color: AppColors.textMuted)),
-                          const SizedBox(height: 14),
-                          _uploadField(
-                            label: '10th marksheet',
-                            hint: 'PDF only',
-                            doc: _tenth,
-                            error: _tenthErr,
-                            onPick: () => _pick(
-                                allowed: _pdf,
-                                setDoc: (d) => _tenth = d,
-                                setErr: (e) => _tenthErr = e),
-                            onRemove: () => setState(() => _tenth = null),
-                          ),
-                          _uploadField(
-                            label: '12th marksheet',
-                            hint: 'PDF only',
-                            doc: _twelfth,
-                            error: _twelfthErr,
-                            onPick: () => _pick(
-                                allowed: _pdf,
-                                setDoc: (d) => _twelfth = d,
-                                setErr: (e) => _twelfthErr = e),
-                            onRemove: () => setState(() => _twelfth = null),
-                          ),
-                          _uploadField(
-                            label: 'Passport (front page)',
-                            hint: 'PDF or image',
-                            doc: _passport,
-                            error: _passportErr,
-                            onPick: () => _pick(
-                                allowed: _pdfImg,
-                                setDoc: (d) => _passport = d,
-                                setErr: (e) => _passportErr = e),
-                            onRemove: () => setState(() => _passport = null),
-                          ),
-                          _uploadField(
-                            label: 'Aadhaar card',
-                            hint: 'PDF or image',
-                            doc: _aadhaar,
-                            error: _aadhaarErr,
-                            onPick: () => _pick(
-                                allowed: _pdfImg,
-                                setDoc: (d) => _aadhaar = d,
-                                setErr: (e) => _aadhaarErr = e),
-                            onRemove: () => setState(() => _aadhaar = null),
-                          ),
+                          _documentsDropdown(),
                           const SizedBox(height: 20),
                           _consentTile(),
                         ],
@@ -339,6 +276,89 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen> {
         labelText: label,
         hintText: hint,
         prefixIcon: Icon(icon, size: 20),
+      ),
+    );
+  }
+
+  /// Collapsed by default — documents are optional, so we don't force the
+  /// student to look at four upload fields before they can proceed.
+  Widget _documentsDropdown() {
+    final uploadedCount =
+        [_tenth, _twelfth, _passport, _aadhaar].where((d) => d != null).length;
+
+    return Container(
+      decoration: BoxDecoration(
+        color: AppColors.surface,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: AppColors.border),
+      ),
+      clipBehavior: Clip.antiAlias,
+      child: Theme(
+        data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
+        child: ExpansionTile(
+          tilePadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+          childrenPadding: const EdgeInsets.fromLTRB(16, 0, 16, 12),
+          leading:
+              const Icon(Icons.folder_open_rounded, color: AppColors.primary),
+          title: const Text('Documents (Optional)',
+              style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w600,
+                  color: AppColors.textPrimary)),
+          subtitle: Text(
+            uploadedCount > 0
+                ? '$uploadedCount of 4 added · PDF, JPG or PNG, up to 5 MB each'
+                : 'Share now or add these later · up to 5 MB each',
+            style:
+                const TextStyle(fontSize: 12.5, color: AppColors.textMuted),
+          ),
+          children: [
+            _uploadField(
+              label: '10th marksheet',
+              hint: 'PDF only',
+              doc: _tenth,
+              error: _tenthErr,
+              onPick: () => _pick(
+                  allowed: _pdf,
+                  setDoc: (d) => _tenth = d,
+                  setErr: (e) => _tenthErr = e),
+              onRemove: () => setState(() => _tenth = null),
+            ),
+            _uploadField(
+              label: '12th marksheet',
+              hint: 'PDF only',
+              doc: _twelfth,
+              error: _twelfthErr,
+              onPick: () => _pick(
+                  allowed: _pdf,
+                  setDoc: (d) => _twelfth = d,
+                  setErr: (e) => _twelfthErr = e),
+              onRemove: () => setState(() => _twelfth = null),
+            ),
+            _uploadField(
+              label: 'Passport (front page)',
+              hint: 'PDF or image',
+              doc: _passport,
+              error: _passportErr,
+              onPick: () => _pick(
+                  allowed: _pdfImg,
+                  setDoc: (d) => _passport = d,
+                  setErr: (e) => _passportErr = e),
+              onRemove: () => setState(() => _passport = null),
+            ),
+            _uploadField(
+              label: 'Aadhaar card',
+              hint: 'PDF or image',
+              doc: _aadhaar,
+              error: _aadhaarErr,
+              onPick: () => _pick(
+                  allowed: _pdfImg,
+                  setDoc: (d) => _aadhaar = d,
+                  setErr: (e) => _aadhaarErr = e),
+              onRemove: () => setState(() => _aadhaar = null),
+            ),
+          ],
+        ),
       ),
     );
   }

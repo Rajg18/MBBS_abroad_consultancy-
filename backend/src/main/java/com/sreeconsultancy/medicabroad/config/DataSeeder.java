@@ -170,6 +170,25 @@ public class DataSeeder implements CommandLineRunner {
         c.add(gm("ru-40", "Penza State University", "Russia"));
         c.add(gm("ru-41", "Tver State Medical University", "Russia"));
 
+        // ── Italy (17) ──
+        c.add(gm("it-01", "University of Bari Aldo Moro", "Italy"));
+        c.add(gm("it-02", "University of Bologna", "Italy"));
+        c.add(gm("it-03", "University of Catania", "Italy"));
+        c.add(gm("it-04", "University of Messina", "Italy"));
+        c.add(gm("it-05", "University of Naples Federico II", "Italy"));
+        c.add(gm("it-06", "University of Parma", "Italy"));
+        c.add(gm("it-07", "University of Pavia", "Italy"));
+        c.add(gm("it-08", "University of Turin", "Italy"));
+        c.add(gm("it-09", "Sapienza University of Rome", "Italy"));
+        c.add(gm("it-10", "Vita-Salute San Raffaele University", "Italy"));
+        c.add(gm("it-11", "University of Milano-Bicocca", "Italy"));
+        c.add(gm("it-12", "University of Campania Luigi Vanvitelli", "Italy"));
+        c.add(gm("it-13", "Catholic University of the Sacred Heart", "Italy"));
+        c.add(gm("it-14", "Humanitas University - Hunimed", "Italy"));
+        c.add(gm("it-15", "Campus Bio-Medico University of Rome", "Italy"));
+        c.add(gm("it-16", "International Medical School (IMS), University of Milan", "Italy"));
+        c.add(gm("it-17", "Saint Camillus International University of Health Sciences (UniCamillus)", "Italy"));
+
         return c;
     }
 }

@@ -87,7 +87,7 @@ class LandingScreen extends ConsumerWidget {
       ),
       child: Column(
         children: [
-          _goldPill('Study MBBS Abroad · Intake Sep 2026'),
+          _goldPill('Study MBBS Abroad · Intake 2026-2027'),
           const SizedBox(height: 24),
           Text(
             'Your medical career,\nbeyond borders.',
@@ -159,7 +159,8 @@ class LandingScreen extends ConsumerWidget {
 
   Widget _statsRow(bool isWide) {
     final stats = [
-      ('7', 'Countries'),
+      (CollegeCatalog.isLoaded ? '${CollegeCatalog.countryCount}' : '11',
+          'Countries'),
       (CollegeCatalog.isLoaded ? '${CollegeCatalog.total}+' : '100+',
           'Universities'),
       ('100%', 'Guided Support'),
@@ -197,7 +198,7 @@ class LandingScreen extends ConsumerWidget {
           'Choose your top 3 country preferences.'),
       (Icons.school_rounded, 'Pick colleges',
           'Select preferred universities in each.'),
-      (Icons.upload_file_rounded, 'Share details',
+      (Icons.upload_file_rounded, 'Share details (Optional)',
           'Upload documents & contact info securely.'),
     ];
     return Column(

@@ -34,10 +34,10 @@ public class ApplicationController {
     @PostMapping(value = "/applications", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<SubmissionResponse> submit(
             @Valid @ModelAttribute ApplicationSubmissionRequest request,
-            @RequestParam("tenthMarksheet") MultipartFile tenthMarksheet,
-            @RequestParam("twelfthMarksheet") MultipartFile twelfthMarksheet,
-            @RequestParam("passport") MultipartFile passport,
-            @RequestParam("aadhaar") MultipartFile aadhaar) {
+            @RequestParam(value = "tenthMarksheet", required = false) MultipartFile tenthMarksheet,
+            @RequestParam(value = "twelfthMarksheet", required = false) MultipartFile twelfthMarksheet,
+            @RequestParam(value = "passport", required = false) MultipartFile passport,
+            @RequestParam(value = "aadhaar", required = false) MultipartFile aadhaar) {
 
         SubmissionResponse response = service.submit(
                 request, tenthMarksheet, twelfthMarksheet, passport, aadhaar);

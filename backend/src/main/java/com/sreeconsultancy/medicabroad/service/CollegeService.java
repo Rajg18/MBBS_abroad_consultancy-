@@ -26,6 +26,10 @@ public class CollegeService {
         COUNTRY_FLAGS.put("Germany", "🇩🇪");
         COUNTRY_FLAGS.put("USA via Caribbean", "🇺🇸");
         COUNTRY_FLAGS.put("Russia", "🇷🇺");
+        COUNTRY_FLAGS.put("Italy", "🇮🇹");
+        COUNTRY_FLAGS.put("Kazakhstan", "🇰🇿");
+        COUNTRY_FLAGS.put("Uzbekistan", "🇺🇿");
+        COUNTRY_FLAGS.put("Nepal", "🇳🇵");
     }
 
     private final CollegeRepository repository;

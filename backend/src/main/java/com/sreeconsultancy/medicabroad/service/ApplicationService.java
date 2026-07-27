@@ -62,11 +62,11 @@ public class ApplicationService {
             }
         }
 
-        // 3) Validate files (type + size) before writing anything.
-        validateFile(tenthMarksheet, "10th marksheet", PDF_ONLY);
-        validateFile(twelfthMarksheet, "12th marksheet", PDF_ONLY);
-        validateFile(passport, "Passport", DOC_OR_IMAGE);
-        validateFile(aadhaar, "Aadhaar", DOC_OR_IMAGE);
+        // 3) Documents are optional; validate type + size for whatever was provided.
+        validateFileIfPresent(tenthMarksheet, "10th marksheet", PDF_ONLY);
+        validateFileIfPresent(twelfthMarksheet, "12th marksheet", PDF_ONLY);
+        validateFileIfPresent(passport, "Passport", DOC_OR_IMAGE);
+        validateFileIfPresent(aadhaar, "Aadhaar", DOC_OR_IMAGE);
 
         // 4) Build the application and store its documents.
         String appId = UUID.randomUUID().toString();
@@ -80,10 +80,18 @@ public class ApplicationService {
         app.setPreferredCountries(req.getCountries());
         app.setPreferredCollegeIds(req.getCollegeIds());
 
-        app.getDocuments().add(storeDoc(tenthMarksheet, appId, DocType.TENTH_MARKSHEET));
-        app.getDocuments().add(storeDoc(twelfthMarksheet, appId, DocType.TWELFTH_MARKSHEET));
-        app.getDocuments().add(storeDoc(passport, appId, DocType.PASSPORT));
-        app.getDocuments().add(storeDoc(aadhaar, appId, DocType.AADHAAR));
+        if (isPresent(tenthMarksheet)) {
+            app.getDocuments().add(storeDoc(tenthMarksheet, appId, DocType.TENTH_MARKSHEET));
+        }
+        if (isPresent(twelfthMarksheet)) {
+            app.getDocuments().add(storeDoc(twelfthMarksheet, appId, DocType.TWELFTH_MARKSHEET));
+        }
+        if (isPresent(passport)) {
+            app.getDocuments().add(storeDoc(passport, appId, DocType.PASSPORT));
+        }
+        if (isPresent(aadhaar)) {
+            app.getDocuments().add(storeDoc(aadhaar, appId, DocType.AADHAAR));
+        }
 
         applicationRepository.save(app);
 
@@ -114,9 +122,13 @@ public class ApplicationService {
         }
     }
 
-    private static void validateFile(MultipartFile file, String label, Set<String> allowedExt) {
-        if (file == null || file.isEmpty()) {
-            throw new BadRequestException(label + " is required");
+    private static boolean isPresent(MultipartFile file) {
+        return file != null && !file.isEmpty();
+    }
+
+    private static void validateFileIfPresent(MultipartFile file, String label, Set<String> allowedExt) {
+        if (!isPresent(file)) {
+            return; // documents are optional; nothing to validate
         }
         if (file.getSize() > MAX_FILE_BYTES) {
             throw new BadRequestException(label + " must be 5 MB or less");

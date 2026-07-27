@@ -120,10 +120,10 @@ class ApplicationController extends Notifier<ApplicationDraft> {
     required String phone,
     required String email,
     required String neetScore,
-    required PickedDoc tenthMarksheet,
-    required PickedDoc twelfthMarksheet,
-    required PickedDoc passport,
-    required PickedDoc aadhaar,
+    PickedDoc? tenthMarksheet,
+    PickedDoc? twelfthMarksheet,
+    PickedDoc? passport,
+    PickedDoc? aadhaar,
     required bool consent,
   }) {
     state = state.copyWith(

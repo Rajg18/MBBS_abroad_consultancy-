@@ -35,4 +35,6 @@ class CollegeCatalog {
   }
 
   static int get total => colleges.length;
+
+  static int get countryCount => countries.length;
 }
