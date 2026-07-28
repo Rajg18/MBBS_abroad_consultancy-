@@ -104,9 +104,10 @@ class LandingScreen extends ConsumerWidget {
           ConstrainedBox(
             constraints: const BoxConstraints(maxWidth: 580),
             child: Text(
-              'Choose from top medical universities across 7 countries. '
-              'Tell us your preferences, share your documents, and our '
-              'counsellors take it from there.',
+              'Transform your medical aspirations into achievement. '
+              'We operate in 25+ countries, and mainly recommend 11 where '
+              'Indian student strength is strong and institutes are '
+              'NMC-approved.',
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 16,
@@ -159,8 +160,7 @@ class LandingScreen extends ConsumerWidget {
 
   Widget _statsRow(bool isWide) {
     final stats = [
-      (CollegeCatalog.isLoaded ? '${CollegeCatalog.countryCount}' : '11',
-          'Countries'),
+      ('25+', 'Countries'),
       (CollegeCatalog.isLoaded ? '${CollegeCatalog.total}+' : '100+',
           'Universities'),
       ('100%', 'Guided Support'),
