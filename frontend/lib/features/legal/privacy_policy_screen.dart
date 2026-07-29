@@ -51,8 +51,9 @@ class PrivacyPolicyScreen extends StatelessWidget {
                     '•  Your name, phone number and email address',
                     '•  Your NEET score',
                     '•  Your preferred countries and universities',
-                    '•  Documents you upload: 10th marksheet, 12th marksheet, '
-                        'passport (front page) and Aadhaar card',
+                    '•  Documents you upload (optional): 10th marksheet, 12th '
+                        'marksheet, passport (front page), Aadhaar card and '
+                        'NEET scorecard',
                   ]),
 
                   _section('3. Why we collect it', [

@@ -42,6 +42,9 @@ class ApplicationApi {
     if (d.aadhaar != null) {
       form.files.add(MapEntry('aadhaar', _part(d.aadhaar!)));
     }
+    if (d.neetScorecard != null) {
+      form.files.add(MapEntry('neetScorecard', _part(d.neetScorecard!)));
+    }
 
     final res = await _dio.post('/applications', data: form);
     return (res.data as Map)['id'] as String;

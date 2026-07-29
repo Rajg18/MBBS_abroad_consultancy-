@@ -37,10 +37,11 @@ public class ApplicationController {
             @RequestParam(value = "tenthMarksheet", required = false) MultipartFile tenthMarksheet,
             @RequestParam(value = "twelfthMarksheet", required = false) MultipartFile twelfthMarksheet,
             @RequestParam(value = "passport", required = false) MultipartFile passport,
-            @RequestParam(value = "aadhaar", required = false) MultipartFile aadhaar) {
+            @RequestParam(value = "aadhaar", required = false) MultipartFile aadhaar,
+            @RequestParam(value = "neetScorecard", required = false) MultipartFile neetScorecard) {
 
         SubmissionResponse response = service.submit(
-                request, tenthMarksheet, twelfthMarksheet, passport, aadhaar);
+                request, tenthMarksheet, twelfthMarksheet, passport, aadhaar, neetScorecard);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 }

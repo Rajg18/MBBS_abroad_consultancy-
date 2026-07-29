@@ -1,9 +1,10 @@
 package com.sreeconsultancy.medicabroad.model;
 
-/** The four documents every applicant uploads. */
+/** The documents an applicant may optionally upload. */
 public enum DocType {
     TENTH_MARKSHEET,
     TWELFTH_MARKSHEET,
     PASSPORT,
-    AADHAAR
+    AADHAAR,
+    NEET_SCORECARD
 }

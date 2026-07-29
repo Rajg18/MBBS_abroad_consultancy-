@@ -47,7 +47,8 @@ public class ApplicationService {
                                      MultipartFile tenthMarksheet,
                                      MultipartFile twelfthMarksheet,
                                      MultipartFile passport,
-                                     MultipartFile aadhaar) {
+                                     MultipartFile aadhaar,
+                                     MultipartFile neetScorecard) {
 
         // 1) Validate NEET score (int or float, 0..720).
         double score = parseScore(req.getNeetScore());
@@ -67,6 +68,7 @@ public class ApplicationService {
         validateFileIfPresent(twelfthMarksheet, "12th marksheet", PDF_ONLY);
         validateFileIfPresent(passport, "Passport", DOC_OR_IMAGE);
         validateFileIfPresent(aadhaar, "Aadhaar", DOC_OR_IMAGE);
+        validateFileIfPresent(neetScorecard, "NEET scorecard", PDF_ONLY);
 
         // 4) Build the application and store its documents.
         String appId = UUID.randomUUID().toString();
@@ -91,6 +93,9 @@ public class ApplicationService {
         }
         if (isPresent(aadhaar)) {
             app.getDocuments().add(storeDoc(aadhaar, appId, DocType.AADHAAR));
+        }
+        if (isPresent(neetScorecard)) {
+            app.getDocuments().add(storeDoc(neetScorecard, appId, DocType.NEET_SCORECARD));
         }
 
         applicationRepository.save(app);

@@ -22,6 +22,7 @@ class ApplicationDraft {
   final PickedDoc? twelfthMarksheet;
   final PickedDoc? passport;
   final PickedDoc? aadhaar;
+  final PickedDoc? neetScorecard;
 
   final bool consent;
 
@@ -36,6 +37,7 @@ class ApplicationDraft {
     this.twelfthMarksheet,
     this.passport,
     this.aadhaar,
+    this.neetScorecard,
     this.consent = false,
   });
 
@@ -50,6 +52,7 @@ class ApplicationDraft {
     PickedDoc? twelfthMarksheet,
     PickedDoc? passport,
     PickedDoc? aadhaar,
+    PickedDoc? neetScorecard,
     bool? consent,
   }) {
     return ApplicationDraft(
@@ -63,6 +66,7 @@ class ApplicationDraft {
       twelfthMarksheet: twelfthMarksheet ?? this.twelfthMarksheet,
       passport: passport ?? this.passport,
       aadhaar: aadhaar ?? this.aadhaar,
+      neetScorecard: neetScorecard ?? this.neetScorecard,
       consent: consent ?? this.consent,
     );
   }
@@ -124,6 +128,7 @@ class ApplicationController extends Notifier<ApplicationDraft> {
     PickedDoc? twelfthMarksheet,
     PickedDoc? passport,
     PickedDoc? aadhaar,
+    PickedDoc? neetScorecard,
     required bool consent,
   }) {
     state = state.copyWith(
@@ -135,6 +140,7 @@ class ApplicationController extends Notifier<ApplicationDraft> {
       twelfthMarksheet: twelfthMarksheet,
       passport: passport,
       aadhaar: aadhaar,
+      neetScorecard: neetScorecard,
       consent: consent,
     );
   }
