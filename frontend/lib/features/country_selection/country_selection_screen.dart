@@ -111,7 +111,7 @@ class CountrySelectionScreen extends ConsumerWidget {
         color: AppColors.surface,
         border: Border(top: BorderSide(color: AppColors.border)),
       ),
-      padding: const EdgeInsets.fromLTRB(20, 14, 20, 18),
+      padding: const EdgeInsets.fromLTRB(24, 18, 24, 22),
       child: SafeArea(
         top: false,
         child: Center(
@@ -132,6 +132,10 @@ class CountrySelectionScreen extends ConsumerWidget {
                       canProceed ? () => context.go('/colleges') : null,
                   icon: const Icon(Icons.arrow_forward_rounded, size: 20),
                   label: const Text('Continue'),
+                  style: FilledButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 24, vertical: 14),
+                  ),
                 ),
               ],
             ),

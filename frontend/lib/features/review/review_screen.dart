@@ -174,6 +174,7 @@ class _ReviewScreenState extends ConsumerState<ReviewScreen> {
           _docRow('12th marksheet', d.twelfthMarksheet),
           _docRow('Passport (front page)', d.passport),
           _docRow('Aadhaar card', d.aadhaar),
+          _docRow('NEET scorecard', d.neetScorecard),
         ],
       ),
     );
@@ -353,7 +354,7 @@ class _ReviewScreenState extends ConsumerState<ReviewScreen> {
         color: AppColors.surface,
         border: Border(top: BorderSide(color: AppColors.border)),
       ),
-      padding: const EdgeInsets.fromLTRB(20, 14, 20, 18),
+      padding: const EdgeInsets.fromLTRB(24, 18, 24, 22),
       child: SafeArea(
         top: false,
         child: Align(
@@ -364,6 +365,10 @@ class _ReviewScreenState extends ConsumerState<ReviewScreen> {
               children: [
                 OutlinedButton(
                   onPressed: _submitting ? null : () => context.go('/details'),
+                  style: OutlinedButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 24, vertical: 14),
+                  ),
                   child: const Text('Back'),
                 ),
                 const Spacer(),
@@ -378,6 +383,10 @@ class _ReviewScreenState extends ConsumerState<ReviewScreen> {
                         )
                       : const Icon(Icons.check_rounded, size: 20),
                   label: Text(_submitting ? 'Submitting…' : 'Submit application'),
+                  style: FilledButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 24, vertical: 14),
+                  ),
                 ),
               ],
             ),

@@ -30,8 +30,8 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen> {
   final _email = TextEditingController();
   final _neet = TextEditingController();
 
-  PickedDoc? _tenth, _twelfth, _passport, _aadhaar;
-  String? _tenthErr, _twelfthErr, _passportErr, _aadhaarErr;
+  PickedDoc? _tenth, _twelfth, _passport, _aadhaar, _neetScorecard;
+  String? _tenthErr, _twelfthErr, _passportErr, _aadhaarErr, _neetScorecardErr;
   bool _consent = false;
   bool _consentErr = false;
 
@@ -48,6 +48,7 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen> {
     _twelfth = d.twelfthMarksheet;
     _passport = d.passport;
     _aadhaar = d.aadhaar;
+    _neetScorecard = d.neetScorecard;
     _consent = d.consent;
   }
 
@@ -115,6 +116,7 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen> {
           twelfthMarksheet: _twelfth,
           passport: _passport,
           aadhaar: _aadhaar,
+          neetScorecard: _neetScorecard,
           consent: _consent,
         );
     context.go('/review');
@@ -283,8 +285,9 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen> {
   /// Collapsed by default — documents are optional, so we don't force the
   /// student to look at four upload fields before they can proceed.
   Widget _documentsDropdown() {
-    final uploadedCount =
-        [_tenth, _twelfth, _passport, _aadhaar].where((d) => d != null).length;
+    final uploadedCount = [_tenth, _twelfth, _passport, _aadhaar, _neetScorecard]
+        .where((d) => d != null)
+        .length;
 
     return Container(
       decoration: BoxDecoration(
@@ -307,7 +310,7 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen> {
                   color: AppColors.textPrimary)),
           subtitle: Text(
             uploadedCount > 0
-                ? '$uploadedCount of 4 added · PDF, JPG or PNG, up to 5 MB each'
+                ? '$uploadedCount of 5 added · PDF, JPG or PNG, up to 5 MB each'
                 : 'Share now or add these later · up to 5 MB each',
             style:
                 const TextStyle(fontSize: 12.5, color: AppColors.textMuted),
@@ -356,6 +359,17 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen> {
                   setDoc: (d) => _aadhaar = d,
                   setErr: (e) => _aadhaarErr = e),
               onRemove: () => setState(() => _aadhaar = null),
+            ),
+            _uploadField(
+              label: 'NEET scorecard',
+              hint: 'PDF only',
+              doc: _neetScorecard,
+              error: _neetScorecardErr,
+              onPick: () => _pick(
+                  allowed: _pdf,
+                  setDoc: (d) => _neetScorecard = d,
+                  setErr: (e) => _neetScorecardErr = e),
+              onRemove: () => setState(() => _neetScorecard = null),
             ),
           ],
         ),
@@ -528,7 +542,7 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen> {
         color: AppColors.surface,
         border: Border(top: BorderSide(color: AppColors.border)),
       ),
-      padding: const EdgeInsets.fromLTRB(20, 14, 20, 18),
+      padding: const EdgeInsets.fromLTRB(24, 18, 24, 22),
       child: SafeArea(
         top: false,
         child: Align(
@@ -539,6 +553,10 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen> {
               children: [
                 OutlinedButton(
                   onPressed: () => context.go('/colleges'),
+                  style: OutlinedButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 24, vertical: 14),
+                  ),
                   child: const Text('Back'),
                 ),
                 const Spacer(),
@@ -546,6 +564,10 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen> {
                   onPressed: _onContinue,
                   icon: const Icon(Icons.arrow_forward_rounded, size: 20),
                   label: const Text('Review application'),
+                  style: FilledButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 24, vertical: 14),
+                  ),
                 ),
               ],
             ),
