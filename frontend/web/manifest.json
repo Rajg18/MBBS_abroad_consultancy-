@@ -1,11 +1,11 @@
 {
-    "name": "medic_abroad_frontend",
-    "short_name": "medic_abroad_frontend",
+    "name": "Sree Consultancy — MBBS Abroad",
+    "short_name": "Sree Consultancy",
     "start_url": ".",
     "display": "standalone",
-    "background_color": "#0175C2",
-    "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "background_color": "#1F2A6E",
+    "theme_color": "#1F2A6E",
+    "description": "MBBS abroad admissions consultancy — 100+ NMC-approved colleges across 25+ countries.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

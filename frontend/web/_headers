@@ -1,0 +1,5 @@
+# Cloudflare Pages custom headers.
+# Keep the private application-review-only admin panel out of search results,
+# even though it's already behind a password + JWT.
+/admin/*
+  X-Robots-Tag: noindex, nofollow
