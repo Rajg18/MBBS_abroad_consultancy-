@@ -3,7 +3,7 @@ spring:
     name: medic-abroad-backend
 
   datasource:
-    url: ${DB_URL:jdbc:postgresql://localhost:5432/medicabroad}
+    url: ${DB_URL:jdbc:postgresql://localhost:6432/medicabroad}
     username: ${DB_USERNAME:medic}
     password: ${DB_PASSWORD:medic}
 
