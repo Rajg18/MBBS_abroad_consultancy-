@@ -1,7 +1,13 @@
 // Central place for cross-page constants. Swap APPLY_URL and SITE_URL once
 // the real domain is live (same placeholder-swap noted for the Flutter app).
 
-export const SITE_URL = "https://www.sreeconsultancy.com";
+/** Canonical origin for this site. Drives canonical tags, OG URLs, JSON-LD
+ * and sitemap entries — so it MUST match where the site actually serves from,
+ * or search engines will canonicalise to a dead domain and skip indexing.
+ * Override via NEXT_PUBLIC_SITE_URL in .env.production once a real domain
+ * is live. */
+export const SITE_URL =
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://sreeconsultancy-site.sreeeduu.workers.dev";
 
 /** The existing Flutter application flow — this site's Apply CTAs link out to it. */
 export const APPLY_URL = "https://sreeconsultancy.sreeeduu.workers.dev/";
