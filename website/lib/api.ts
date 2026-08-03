@@ -39,7 +39,26 @@ export function getCountries(): Promise<Country[]> {
   return apiFetch<Country[]>("/countries");
 }
 
-export function getColleges(country?: string): Promise<College[]> {
+/** Raw shape as it may arrive from an older backend deploy, before the
+ * description/fees/duration/highlights fields existed. */
+type RawCollege = Omit<College, "description" | "feesPerYearUsd" | "durationYears" | "highlights"> &
+  Partial<Pick<College, "description" | "feesPerYearUsd" | "durationYears" | "highlights">>;
+
+/** Guarantees every optional content field is present, so a backend running
+ * an older version can never crash the static build (an absent `highlights`
+ * would otherwise throw on `.length`). */
+function normalize(c: RawCollege): College {
+  return {
+    ...c,
+    description: c.description ?? null,
+    feesPerYearUsd: c.feesPerYearUsd ?? null,
+    durationYears: c.durationYears ?? null,
+    highlights: c.highlights ?? [],
+  };
+}
+
+export async function getColleges(country?: string): Promise<College[]> {
   const query = country ? `?country=${encodeURIComponent(country)}` : "";
-  return apiFetch<College[]>(`/colleges${query}`);
+  const raw = await apiFetch<RawCollege[]>(`/colleges${query}`);
+  return raw.map(normalize);
 }
