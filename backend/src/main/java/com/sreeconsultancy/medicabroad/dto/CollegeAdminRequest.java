@@ -1,5 +1,7 @@
 package com.sreeconsultancy.medicabroad.dto;
 
+import java.util.List;
+
 import jakarta.validation.constraints.NotBlank;
 
 /**
@@ -12,6 +14,10 @@ public record CollegeAdminRequest(
         String program,
         String level,
         String intake,
-        Boolean admissionOpen
+        Boolean admissionOpen,
+        String description,
+        Integer feesPerYearUsd,
+        Integer durationYears,
+        List<String> highlights
 ) {
 }

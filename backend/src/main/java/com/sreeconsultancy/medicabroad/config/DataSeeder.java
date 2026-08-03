@@ -40,17 +40,20 @@ public class DataSeeder implements CommandLineRunner {
 
     // General Medicine · Bachelor · Sep-26 · admission open
     private static College gm(String id, String name, String country) {
-        return new College(id, name, country, "General Medicine", "Bachelor", "Sep-26", true);
+        return new College(id, name, country, "General Medicine", "Bachelor", "Sep-26", true,
+                null, null, null, new ArrayList<>());
     }
 
     // Integrated American Program variant (open)
     private static College iap(String id, String name, String country) {
-        return new College(id, name, country, "Integrated American Program", "Bachelor", "Sep-26", true);
+        return new College(id, name, country, "Integrated American Program", "Bachelor", "Sep-26", true,
+                null, null, null, new ArrayList<>());
     }
 
     // General Medicine · Bachelor · Sep-26 · admission CLOSED
     private static College closed(String id, String name, String country) {
-        return new College(id, name, country, "General Medicine", "Bachelor", "Sep-26", false);
+        return new College(id, name, country, "General Medicine", "Bachelor", "Sep-26", false,
+                null, null, null, new ArrayList<>());
     }
 
     private List<College> buildSeed() {
@@ -122,7 +125,8 @@ public class DataSeeder implements CommandLineRunner {
         c.add(gm("my-03", "Manipal University College", "Malaysia"));
 
         // ── Germany (1) — Medical PG · Master · CLOSED ──
-        c.add(new College("de-01", "FHM University", "Germany", "Medical PG", "Master", "Sep-26", false));
+        c.add(new College("de-01", "FHM University", "Germany", "Medical PG", "Master", "Sep-26", false,
+                null, null, null, new ArrayList<>()));
 
         // ── USA via Caribbean (1) — CLOSED ──
         c.add(closed("us-01", "St. George's University (SGU)", "USA via Caribbean"));

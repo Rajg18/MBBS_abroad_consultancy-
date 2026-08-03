@@ -74,6 +74,10 @@ public class AdminCollegeService {
         c.setLevel(orDefault(req.level(), "Bachelor"));
         c.setIntake(orDefault(req.intake(), "Sep-26"));
         c.setAdmissionOpen(req.admissionOpen() == null || req.admissionOpen());
+        c.setDescription(req.description() == null ? "" : req.description().trim());
+        c.setFeesPerYearUsd(req.feesPerYearUsd());
+        c.setDurationYears(req.durationYears() != null ? req.durationYears() : 6);
+        c.setHighlights(req.highlights() == null ? List.of() : req.highlights());
     }
 
     private static String orDefault(String value, String fallback) {
