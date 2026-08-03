@@ -1,0 +1,142 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+@plugin "@tailwindcss/typography";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-geist-mono);
+  --font-heading: var(--font-sans);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-primary-dark: var(--primary-dark);
+  --color-accent-dark: var(--accent-dark);
+  --color-accent-tint: var(--accent-tint);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+:root {
+  /* Sree Consultancy brand — mirrors frontend/lib/core/theme/app_colors.dart
+     so the Flutter apply-flow and this marketing site stay visually identical. */
+  --background: #F6F7FB;
+  --foreground: #1A2036;
+  --card: #FFFFFF;
+  --card-foreground: #1A2036;
+  --popover: #FFFFFF;
+  --popover-foreground: #1A2036;
+  --primary: #1F2A6E;        /* logo navy */
+  --primary-dark: #16205A;
+  --primary-foreground: #FFFFFF;
+  --secondary: #EAECF7;      /* navy tint */
+  --secondary-foreground: #1F2A6E;
+  --muted: #EFF1F8;
+  --muted-foreground: #565E7A;
+  --accent: #C2A24E;         /* logo antique gold */
+  --accent-dark: #9C7F34;
+  --accent-tint: #F6EFDD;
+  --accent-foreground: #16205A;
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: #E2E5F0;
+  --input: #E2E5F0;
+  --ring: #C2A24E;
+  --chart-1: #1F2A6E;
+  --chart-2: #C2A24E;
+  --chart-3: #565E7A;
+  --chart-4: #9AA1B8;
+  --chart-5: #16205A;
+  --radius: 0.75rem;
+  --sidebar: #FFFFFF;
+  --sidebar-foreground: #1A2036;
+  --sidebar-primary: #1F2A6E;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: #EAECF7;
+  --sidebar-accent-foreground: #1F2A6E;
+  --sidebar-border: #E2E5F0;
+  --sidebar-ring: #C2A24E;
+}
+
+.dark {
+  --background: #0F1430;
+  --foreground: #ECE7D8;
+  --card: #171B38;
+  --card-foreground: #ECE7D8;
+  --popover: #171B38;
+  --popover-foreground: #ECE7D8;
+  --primary: #93A3F0;
+  --primary-dark: #C7D0FA;
+  --primary-foreground: #0F1430;
+  --secondary: #232A54;
+  --secondary-foreground: #ECE7D8;
+  --muted: #1D2245;
+  --muted-foreground: #A3A8C9;
+  --accent: #D9B866;
+  --accent-dark: #F0DFA8;
+  --accent-tint: #4A4022;
+  --accent-foreground: #171B38;
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: #333A63;
+  --input: #333A63;
+  --ring: #D9B866;
+  --chart-1: #93A3F0;
+  --chart-2: #D9B866;
+  --chart-3: #A3A8C9;
+  --chart-4: #5B6285;
+  --chart-5: #C7D0FA;
+  --sidebar: #171B38;
+  --sidebar-foreground: #ECE7D8;
+  --sidebar-primary: #93A3F0;
+  --sidebar-primary-foreground: #0F1430;
+  --sidebar-accent: #232A54;
+  --sidebar-accent-foreground: #ECE7D8;
+  --sidebar-border: #333A63;
+  --sidebar-ring: #D9B866;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  html {
+    @apply font-sans;
+  }
+}

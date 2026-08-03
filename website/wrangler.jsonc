@@ -1,0 +1,15 @@
+{
+  // Deliberately a DIFFERENT worker name from the Flutter app (which is
+  // "sreeconsultancy" in frontend/wrangler.jsonc). Two separate workers =
+  // two separate URLs, so the marketing site never overwrites the
+  // application portal that its "Go to Application" buttons point to.
+  //
+  //   this marketing site -> sreeconsultancy-site.sreeeduu.workers.dev
+  //   Flutter app portal  -> sreeconsultancy.sreeeduu.workers.dev  (unchanged)
+  "name": "sreeconsultancy-site",
+  "compatibility_date": "2026-08-03",
+  "assets": {
+    // Next.js static export output (output: "export" in next.config.ts)
+    "directory": "out"
+  }
+}
