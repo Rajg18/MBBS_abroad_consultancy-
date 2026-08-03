@@ -342,6 +342,10 @@ class _CollegeFormDialogState extends State<_CollegeFormDialog> {
   late final TextEditingController _program;
   late final TextEditingController _level;
   late final TextEditingController _intake;
+  late final TextEditingController _description;
+  late final TextEditingController _fees;
+  late final TextEditingController _duration;
+  late final TextEditingController _highlights;
   late String _country;
   late bool _open;
 
@@ -353,6 +357,10 @@ class _CollegeFormDialogState extends State<_CollegeFormDialog> {
     _program = TextEditingController(text: e?.program ?? 'General Medicine');
     _level = TextEditingController(text: e?.level ?? 'Bachelor');
     _intake = TextEditingController(text: e?.intake ?? 'Sep-26');
+    _description = TextEditingController(text: e?.description ?? '');
+    _fees = TextEditingController(text: e?.feesPerYearUsd?.toString() ?? '');
+    _duration = TextEditingController(text: e?.durationYears?.toString() ?? '');
+    _highlights = TextEditingController(text: (e?.highlights ?? const []).join('\n'));
     _country = e?.country ??
         (widget.countries.isNotEmpty ? widget.countries.first : 'Georgia');
     _open = e?.admissionOpen ?? true;
@@ -364,6 +372,10 @@ class _CollegeFormDialogState extends State<_CollegeFormDialog> {
     _program.dispose();
     _level.dispose();
     _intake.dispose();
+    _description.dispose();
+    _fees.dispose();
+    _duration.dispose();
+    _highlights.dispose();
     super.dispose();
   }
 
@@ -411,6 +423,48 @@ class _CollegeFormDialogState extends State<_CollegeFormDialog> {
                   controller: _intake,
                   decoration: const InputDecoration(labelText: 'Intake'),
                 ),
+                const SizedBox(height: 12),
+                Row(
+                  children: [
+                    Expanded(
+                      child: TextFormField(
+                        controller: _fees,
+                        decoration: const InputDecoration(
+                            labelText: 'Fees / year (USD)'),
+                        keyboardType: TextInputType.number,
+                      ),
+                    ),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: TextFormField(
+                        controller: _duration,
+                        decoration:
+                            const InputDecoration(labelText: 'Duration (years)'),
+                        keyboardType: TextInputType.number,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 12),
+                TextFormField(
+                  controller: _description,
+                  decoration: const InputDecoration(
+                    labelText: 'Description',
+                    hintText: 'Shown on the college\'s public page',
+                    alignLabelWithHint: true,
+                  ),
+                  maxLines: 3,
+                ),
+                const SizedBox(height: 12),
+                TextFormField(
+                  controller: _highlights,
+                  decoration: const InputDecoration(
+                    labelText: 'Highlights',
+                    hintText: 'One per line, shown as bullets',
+                    alignLabelWithHint: true,
+                  ),
+                  maxLines: 3,
+                ),
                 const SizedBox(height: 8),
                 SwitchListTile(
                   contentPadding: EdgeInsets.zero,
@@ -437,6 +491,14 @@ class _CollegeFormDialogState extends State<_CollegeFormDialog> {
               'level': _level.text.trim(),
               'intake': _intake.text.trim(),
               'admissionOpen': _open,
+              'description': _description.text.trim(),
+              'feesPerYearUsd': int.tryParse(_fees.text.trim()),
+              'durationYears': int.tryParse(_duration.text.trim()),
+              'highlights': _highlights.text
+                  .split('\n')
+                  .map((h) => h.trim())
+                  .where((h) => h.isNotEmpty)
+                  .toList(),
             });
           },
           child: const Text('Save'),
